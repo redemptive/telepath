@@ -1,16 +1,37 @@
 import decode from 'jwt-decode';
+
+import config from '../config/config'
+
 export default class AuthService {
     // Initializing important variables
     constructor(domain) {
-        this.domain = domain || 'http://localhost:4000' // API server domain
+        this.domain = domain || config.apiLocation || 'http://localhost'// API server domain
         this.fetch = this.fetch.bind(this) // React binding stuff
         this.login = this.login.bind(this)
+        this.register = this.register.bind(this);
         this.getProfile = this.getProfile.bind(this)
+    }
+
+    register(email, name, password) {
+        console.log(config.apiLocation)
+        return this.fetch(`${this.domain}/api/register`, {
+            method: 'POST',
+            body: JSON.stringify({
+                email: email,
+                name: name,
+                password: password
+            })
+        }).then(res => {
+            return Promise.resolve(res);
+        }).catch(err => {
+            console.log(err);
+            return Promise.reject(err);
+        });
     }
 
     login(email, password) {
         // Get a token from api server using the fetch api
-        return this.fetch(`${this.domain}/authenticate`, {
+        return this.fetch(`${this.domain}/api/authenticate`, {
             method: 'POST',
             body: JSON.stringify({
                 email: email,

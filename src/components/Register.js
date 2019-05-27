@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 //import './Login.css';
-import config from '../config/config'
+import config from '../config/config';
 import AuthService from './AuthService';
 
-class Login extends Component {
+class Register extends Component {
     constructor(){
         super();
         this.handleChange = this.handleChange.bind(this);
@@ -14,8 +14,7 @@ class Login extends Component {
         return (
             <div className="center">
                 <div className="card">
-                    <h1>Login</h1>
-                    <a href="./register">Or register</a>
+                    <h1>Register</h1>
                     <form>
                         <input
                             className="form-item"
@@ -31,10 +30,17 @@ class Login extends Component {
                             type="password"
                             onChange={this.handleChange}
                         />
+                        <input
+                            className="form-item"
+                            placeholder="name goes here..."
+                            name="name"
+                            type="name"
+                            onChange={this.handleChange}
+                        />
                         <button
                             className="form-submit"
                             onClick={this.handleFormSubmit}
-                        >Log in</button>
+                        >Register</button>
                     </form>
                 </div>
             </div>
@@ -48,9 +54,9 @@ class Login extends Component {
     
     handleFormSubmit(e){
         e.preventDefault();
-        this.Auth.login(this.state.email,this.state.password)
+        this.Auth.register(this.state.email, this.state.name, this.state.password)
             .then(res =>{
-               this.props.history.replace('/');
+               this.props.history.replace('/login');
             }).catch(err =>{
                 alert(err);
             })
@@ -65,4 +71,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Register;
