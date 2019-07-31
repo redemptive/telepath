@@ -19,6 +19,8 @@ services:
     depends_on:
       - api
     build: .
+    volumes:
+      - ./:/usr/src/app
 
   api:
     environment:
