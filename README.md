@@ -30,12 +30,14 @@ This will build the full three tier application with an nginx proxy container si
 
 All requests MUST go through nginx as the other containers all use non-forwarded ports to increase security.
 
+This is a dev architecture, there is a shared volume with the app container. Edit some code in the repo and it will update in the containers immediately!
+
 #### Prerequisites
 - Docker installed with the ability to run linux containers (I develop on Ubuntu)
 - Docker-compose installed (if it didn't come with your docker installation)
 
 #### Get it Running
-- Clone my telepath-api project
+- Clone my telepath-api project from `https://github.com/redemptive/telepath-api`
 - Build my telepath-api container, tagged as telepath-api: `docker build ./telepath-api -t telepath-api`
 - Run the containers: `docker-compose up ./telepath`
 - Go to `http://localhost`

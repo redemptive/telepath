@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-function User(props) {
+function Team(props) {
     return (
-        <div className="user">
+        <div className="team">
             <h2>{props.name}</h2>
         </div>
     )
 }
 
-export default User;
+export default Team;

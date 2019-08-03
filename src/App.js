@@ -5,6 +5,7 @@ import './App.css';
 import Navbar from './components/Navbar'
 import MainContent from './components/MainContent'
 import User from './components/User'
+import Team from './components/Team'
 
 import AuthService from './components/AuthService';
 import withAuth from './components/withAuth';
@@ -16,34 +17,88 @@ class App extends Component {
     super();
 
     this.state = {
-      users: null
+      usersIsLoading: true,
+      users: [],
+      error: null,
+      teamsIsLoading: true,
+      teams: []
     }
   }
 
+ componentDidMount() {
+   this.fetchUsers();
+   this.fetchTeams();
+  }
+
   render() {
-    console.log(this);
+    const { users, usersIsLoading, error, teams, teamsIsLoading } = this.state;
     return (
-    <div className="App">
-      <Navbar />
-      <MainContent />
-      <div className="App-header">
-          <h2>Welcome {this.props.user.id}</h2>
-      </div>
-      {this.state.users.map((value, index) => {
-        return (<User id={index} data={value} />)
-      })}
-      <p className="App-intro">
-          <button type="button" className="form-submit" onClick={this.handleLogout.bind(this)}>Logout</button>
-      </p>
-    </div>
+      <React.Fragment>
+        <div className="App">
+          <Navbar />
+          <MainContent />
+          <div className="App-header">
+              <h2>Welcome {this.props.user.id}</h2>
+          </div>
+          {error ? <p>{error.message}</p> : null}
+          <h2>Users:</h2>
+          {!usersIsLoading ? (
+              users.map(user => {
+                return (
+                  <User name={user.name}/>
+                );
+              })
+            ) : (
+              <h3>Loading...</h3>
+            )}
+          <h2>Teams:</h2>
+          {!teamsIsLoading ? (
+            teams === [] ? (
+              teams.map(user => {
+                return (
+                  <Team name={user.name}/>
+                );
+              })
+            ) : (
+              <p>No teams...</p>
+            )
+          ) : (
+            <h3>Loading...</h3>
+          )}
+          <p className="App-intro">
+              <button type="button" className="form-submit" onClick={this.handleLogout.bind(this)}>Logout</button>
+          </p>
+        </div>
+      </React.Fragment>
     );
   }
-  
-  componentWillMount() {
-    let users = Auth.fetch('http://localhost/users');
-    this.setState({
-      users: users
-    })
+
+  fetchUsers() {
+    Auth.fetch('http://localhost/api/users').then(data =>
+        this.setState({
+          users: data,
+          usersIsLoading: false,
+        })
+      ).catch(error => 
+        this.setState({ 
+          error, 
+          usersIsLoading: false 
+        })
+      );
+  }
+
+  fetchTeams() {
+    Auth.fetch('http://localhost/api/teams').then(data =>
+        this.setState({
+          teams: data,
+          teamsIsLoading: false,
+        })
+      ).catch(error => 
+        this.setState({ 
+          error, 
+          teamsIsLoading: false 
+        })
+      );
   }
 
   handleLogout(){
