@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import config from '../config/config'
-import AuthService from './AuthService';
+//import './Login.css';
+import config from '../../../config/config';
+import AuthService from '../../../services/AuthService';
 
-class Login extends Component {
+class Register extends Component {
 	constructor(){
 		super();
-		this.Auth = new AuthService(config.apiLocation);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
+		this.Auth = new AuthService(config.apiLocation);
 	}
 	render() {
 		return (
 			<div className="center">
 				<div className="card">
-					<h1>Login</h1>
-					<a href="./register">Or register</a>
+					<h1>Register</h1>
 					<form>
 						<input
 							className="form-item"
@@ -30,10 +30,17 @@ class Login extends Component {
 							type="password"
 							onChange={this.handleChange}
 						/>
+						<input
+							className="form-item"
+							placeholder="name goes here..."
+							name="name"
+							type="name"
+							onChange={this.handleChange}
+						/>
 						<button
 							className="form-submit"
 							onClick={this.handleFormSubmit}
-						>Log in</button>
+						>Register</button>
 					</form>
 				</div>
 			</div>
@@ -47,12 +54,12 @@ class Login extends Component {
     
 	handleFormSubmit(e){
 		e.preventDefault();
-		this.Auth.login(this.state.email,this.state.password)
+		this.Auth.register(this.state.email, this.state.name, this.state.password)
 			.then(res =>{
-				this.props.history.replace('/');
+				this.props.history.replace('/login');
 			}).catch(err =>{
 				alert(err);
-			});
+			})
 	}
 
 	handleChange(e){
@@ -60,8 +67,8 @@ class Login extends Component {
 			{
 				[e.target.name]: e.target.value
 			}
-		);
+		)
 	}
 }
 
-export default Login;
+export default Register;

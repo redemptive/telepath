@@ -13,7 +13,6 @@ export default class AuthService {
 	}
 
 	register(email, name, password) {
-		console.log(config.apiLocation);
 		return this.fetch(`${this.domain}/api/register`, {
 			method: 'POST',
 			body: JSON.stringify({
@@ -24,7 +23,6 @@ export default class AuthService {
 		}).then(res => {
 			return Promise.resolve(res);
 		}).catch(err => {
-			console.log(err);
 			return Promise.reject(err);
 		});
 	}

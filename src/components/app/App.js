@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import './App.css';
 
 // Components
-import Navbar from './components/Navbar';
-import MainContent from './components/MainContent';
-import User from './components/User';
-import Team from './components/Team';
-import AdminPanel from './components/AdminPanel';
+import Navbar from '../navbar/Navbar';
+import MainContent from '../MainContent';
+import User from '../User';
+import Team from '../Team';
+import AdminPanel from '../AdminPanel';
 
-import AuthService from './components/AuthService';
-import withAuth from './components/withAuth';
+import AuthService from '../../services/AuthService';
+import withAuth from '../withAuth';
 const Auth = new AuthService();
 
 
@@ -65,7 +65,7 @@ class App extends Component {
 								);
 							})
 						) : (
-							<p>No teams...</p>
+							<p>No teams... an admin can add some</p>
 						)
 					) : (
 						<h3>Loading...</h3>

@@ -1,0 +1,11 @@
+.Navbar {
+    background-color: black;
+    color: white;
+    font-size: 26px;
+    padding: 10px;
+}
+
+a {
+    margin-left: 10px;
+    margin-right: 10px;
+}
