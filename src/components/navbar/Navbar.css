@@ -5,7 +5,16 @@
     padding: 10px;
 }
 
-a {
+.Navbar a {
+    text-decoration: none;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.Navbar a:visited {
+    color: white;
+}
+
+.Navbar a:hover {
+    color: red;
 }

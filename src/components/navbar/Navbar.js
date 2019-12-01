@@ -5,7 +5,7 @@ function Navbar(props) {
 	return (
 		<div className="Navbar">
 			<navbar className="Navbar">
-				Telepath
+				Telepath |
 				<a href="/">Home</a>
 				<a href="/teams">Teams</a>
 				<a href="/users">Users</a>

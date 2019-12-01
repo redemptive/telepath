@@ -59,7 +59,7 @@ class Register extends Component {
 				this.props.history.replace('/login');
 			}).catch(err =>{
 				alert(err);
-			})
+			});
 	}
 
 	handleChange(e){
@@ -67,7 +67,7 @@ class Register extends Component {
 			{
 				[e.target.name]: e.target.value
 			}
-		)
+		);
 	}
 }
 

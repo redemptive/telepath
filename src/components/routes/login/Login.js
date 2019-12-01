@@ -8,14 +8,19 @@ class Login extends Component {
 		this.Auth = new AuthService(config.apiLocation);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
+		this.state = {};
 	}
 	render() {
 		return (
 			<div className="center">
+				{this.state.error ? 
+					<p>Error: {this.state.error}</p> 
+					:
+					null }
 				<div className="card">
 					<h1>Login</h1>
 					<a href="./register">Or register</a>
-					<form>
+					<form className="login-form">
 						<input
 							className="form-item"
 							placeholder="email goes here..."
@@ -41,8 +46,7 @@ class Login extends Component {
 	}
 
 	componentWillMount(){
-		if(this.Auth.loggedIn())
-			this.props.history.replace('/');
+		if (this.Auth.loggedIn()) this.props.history.replace('/');
 	}
     
 	handleFormSubmit(e){
@@ -51,7 +55,7 @@ class Login extends Component {
 			.then(res =>{
 				this.props.history.replace('/');
 			}).catch(err =>{
-				alert(err);
+				this.setState({error: err});
 			});
 	}
 
